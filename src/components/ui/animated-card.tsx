@@ -231,35 +231,27 @@ export const MovingBorder = ({
   className?: string;
 }) => {
   return (
-    <div
+    <motion.div
       className={cn(
-        "relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-white/20 bg-zinc-900/80 p-px",
+        "relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl p-px",
         className
       )}
       style={{
-        background:
-          "linear-gradient(var(--rotation), #3b82f6, #8b5cf6, #ec4899, #3b82f6)",
-        animation: `spin ${duration}ms linear infinite`,
+        background: "linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)",
+        backgroundSize: "300% 100%",
+      }}
+      animate={{
+        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+      }}
+      transition={{
+        duration: duration / 1000,
+        repeat: Infinity,
+        ease: "linear",
       }}
     >
-      <style jsx>{`
-        @keyframes spin {
-          from {
-            --rotation: 0deg;
-          }
-          to {
-            --rotation: 360deg;
-          }
-        }
-        @property --rotation {
-          syntax: "<angle>";
-          initial-value: 0deg;
-          inherits: false;
-        }
-      `}</style>
       <div className="relative z-10 flex h-full w-full items-center justify-center rounded-[inherit] bg-zinc-950">
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 };
